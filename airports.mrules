@@ -1,0 +1,54 @@
+// grabs airport runway layouts only
+
+features
+	areas
+		aerodrome : aeroway=aerodrome
+		aeroway apron : aeroway=apron
+		aeroway terminal : aeroway=terminal
+		
+	lines
+		aeroway runway : aeroway=runway
+		aeroway taxiway : aeroway=taxiway
+
+properties
+	map-background-color : #FFFFFF
+	
+rules
+	target : aerodrome
+		define
+			fill-color : #000000
+			line-color : #FF0000
+			line-width : 0.1
+//			fill-hatch : diagonalcross
+//			fill-hatch-color : #FFFFFF			
+		draw : fill
+		draw : line
+
+	target : aeroway apron
+		define
+			fill-color : #000000
+			line-color : #00FF00
+			line-width : 0.1
+		draw : fill
+		draw : line
+
+	target : aeroway terminal
+		define
+			fill-color : #000000
+			line-color : #0000FF
+			line-width : 0.1
+		draw : fill
+		draw : line
+		
+	target : aeroway runway
+		define
+			line-color : #336699
+			line-width : 12
+		draw : line
+		
+	target : aeroway taxiway
+		define
+			line-color : #669933
+			line-width : 5
+			
+		draw : line

@@ -1,0 +1,156 @@
+// Laser cutting maps for money
+
+features
+	lines
+		highway motorway : highway=motorway
+		highway motorway link : highway=motorway_link
+		highway trunk : highway=trunk
+		highway trunk link: highway=trunk_link
+		highway primary link : highway=primary_link
+		highway primary : highway=primary
+		highway secondary : highway=secondary
+		highway tertiary : highway=tertiary
+		highway unclassified : highway=unclassified
+		highway residential : highway=residential
+		highway service : highway=service
+		highway living street : highway=living_street
+
+		railway rail : railway=rail
+		railway lightrail : railway=light_rail
+
+		contour major : contour[@isMulti(elevation, 100)]
+		contour minor : contour[@isMulti(elevation, 20) and not @isMulti(elevation, 100)]
+
+	areas
+		building : building
+		water : natural=water OR waterway=riverbank OR landuse=reservoir OR landuse=basin OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
+
+properties
+	map-background-color : #FFFFFF
+
+rules
+	target : building
+		define
+			fill-color : #000000
+			line-color : #FF0000
+			line-width : 0.1
+		draw : fill
+		draw : line
+
+
+
+	target : highway motorway
+		define
+			line-color : #0000ff
+			line-width : 5
+		draw : line
+
+	target : highway motorway link
+		define
+			line-color : #0000ff
+			line-width : 5
+		draw : line
+
+	target : highway trunk
+		define
+			line-color : #0000ff
+			line-width : 5
+		draw : line
+
+	target : highway trunk link
+		define
+			line-color : #0000ff
+			line-width : 5
+		draw : line
+
+	target : highway primary link
+		define
+			line-color : #0000ff
+			line-width : 3
+		draw : line
+
+	target : highway primary
+		define
+			line-color : #0000ff
+			line-width : 3
+		draw : line
+
+	target : highway secondary
+		define
+			line-color : #0000ff
+			line-width : 1
+		draw : line
+
+	target : highway tertiary
+		define
+			line-color : #0000ff
+			line-width : 1
+		draw : line
+
+	target : highway unclassified
+		define
+			line-color : #0000ff
+			line-width : 0.5
+		draw : line
+
+	target : highway residential
+		define
+			line-color : #0000ff
+			line-width : 0.5
+		draw : line
+
+	target : highway service
+		define
+			line-color : #0000ff
+			line-width : 0.5
+		draw : line
+
+	target : highway living street
+		define
+			line-color : #0000ff
+			line-width : 0.5
+		draw : line
+
+	target : water
+		define
+			fill-color : #336699
+			line-color : #336699
+			line-width : 0.5
+		draw : fill
+		draw : line
+
+	target: contour*
+		define
+			line-color : #009933
+
+			curved : true
+		if : *major
+			define
+				min-zoom : 9
+				line-width : 11:0.1;11.9:1;12:1
+
+		else
+			define
+				min-zoom : 12
+				line-width : 0.5
+		draw : contour
+
+	target: coastline
+		define
+			line-color : #00FFFF
+			line-width : 1
+		draw : line
+
+	target: railway rail
+		define
+			line-color : #00FF00
+			line-style : dash
+			line-width : 1
+		draw : line
+
+	target: railway lightrail
+		define
+			line-color : #00FF00
+			line-style : dash
+			line-width : 1
+		draw : line

@@ -1,0 +1,125 @@
+// Laser cutting maps for money A1 streetnames and railway lines hatched water
+// DMK use-ruleset location=Rules/bigmap.mrules
+
+features
+	lines
+		big roads : highway=motorway OR highway=motorway_link OR highway=trunk OR highway=trunk_link
+		roads : highway=primary_link OR highway=primary
+		other roads : highway=secondary OR highway=tertiary OR highway=unclassified OR highway=residential OR highway=service OR highway=living_street
+		footpaths : highway=pedestrian OR highway=path OR highway=footway
+
+		trains : railway=rail OR railway=light_rail
+
+	areas
+		station : railway=station
+		water : natural=water OR waterway=riverbank OR landuse=reservoir OR landuse=basin OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
+
+properties
+	map-background-color : #FFFFFF
+	map-sea-color : #336699
+	font-weight : bold
+	font-family : Helvetica CE 35 Thin
+	text-max-width : 7
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	text-align-horizontal : center
+	text-align-vertical : center
+	font-stretch : 0.9
+	map.rendering.lflp.min-buffer-space : 5
+	map.rendering.lflp.max-allowed-corner-angle : 40
+
+rules
+	target : station
+		define
+			fill-color : #000000
+//			line-color : #FF0000
+			line-width : 1
+		draw : line
+		draw : fill
+
+	target : big roads
+		define
+			line-color : #0000ff
+			line-width : 20
+		draw : line
+
+		define
+			font-family : Helvetica CE 35 Thin
+			font-size : 13:3;15:3
+			min-zoom : 13
+			text-align-vertical : near
+			text-color : black
+			text-max-width : 15
+			text-offset-vertical : 0%
+			text-halo-width : 30%
+			text-halo-opacity : 0.75
+		draw : text
+
+	target : roads
+		define
+			line-color : #0000ff
+			line-width :10
+		draw : line
+
+		define
+			font-family : Helvetica CE 35 Thin
+			font-size : 13:3;15:3
+			min-zoom : 19
+			text-align-vertical : near
+			text-color : black
+			text-max-width : 15
+			text-offset-vertical : 0%
+			text-halo-width : 30%
+			text-halo-opacity : 0.75
+		draw : text
+
+	target : other roads
+		define
+			line-color : #0000ff
+			line-width : 5
+		draw : line
+
+		define
+			font-family : Helvetica CE 35 Thin
+			font-size : 13:3;15:3
+			min-zoom : 13
+			text-align-vertical : near
+			text-color : black
+			text-max-width : 15
+			text-offset-vertical : 0%
+			text-halo-width : 30%
+			text-halo-opacity : 0.75
+		draw : text
+
+	target : water
+		define
+			fill-color : #000000
+			line-color : #336699
+			fill-hatch : diagonalcross
+			fill-hatch-color : #FFFFFF
+			line-width : 1
+		draw : fill
+		draw : line
+
+	target: coastline
+		define
+			fill-color : #000000
+			line-color : #336699
+			fill-hatch : diagonalcross
+			fill-hatch-color : #FFFFFF
+			line-width : 1
+		draw : fill
+		draw : line
+
+	target: trains
+		define
+			line-color : #00FF00
+			line-width : 1
+		draw : line
+
+	target: footpaths
+		define
+			line-color : #FF0000
+			line-style : dot
+			line-width : 1
+		draw : line

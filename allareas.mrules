@@ -1,0 +1,16 @@
+// DMK use-ruleset location=Rules/allareas.mrules
+
+features
+	areas
+		all areas :
+
+properties
+	map-background-color : #FFFFFF
+
+rules
+	target : all areas
+		define
+			fill-color : #FFFFFF
+			line-width : 0.1
+			line-color : #ff0000
+		draw : fill

@@ -1,0 +1,336 @@
+﻿// Author: DMK
+//
+// Goals: all roads only in back / grey for engraving
+
+features
+//	parking : amenity=parking
+//	postbox : amenity=post_box
+//	postoffice : amenity=post_office
+//	telephone : amenity=telephone
+//	fire station : amenity=fire_station
+//	police station : amenity=police
+//	recycling : amenity=recycling
+//	church : amenity=place_of_worship AND religion=christian
+//	drinking water : amenity=drinking_water
+//	bank : amenity=bank
+//	atm : amenity=atm
+//	toilets : amenity=toilets
+//	library : amenity=library
+//	tree : natural=tree
+//	school : node[amenity=school] area[amenity=school]
+//	bus stop : highway=bus_stop
+//	mini roundabout : highway=mini_roundabout
+//	gate : barrier=gate
+//	tourism viewpoint : tourism=viewpoint
+//	tourism hotel : node[tourism=hotel] area[tourism=hotel]
+//	tourism museum : node[tourism=museum] area[tourism=museum]
+//	amenity pub : amenity=pub
+//	amenity fast_food : amenity=fast_food
+
+// These are not shown on Mapnik
+//	puffin : crossing_ref=puffin
+//	memorial : historic=memorial
+
+	areas
+		building : building=yes
+		water : natural=water OR waterway=riverbank OR landuse=reservoir
+		pitch : leisure=pitch
+		village green : landuse=village_green
+		forest : landuse=forest OR natural=wood
+		farm : landuse=farm
+		grass : landuse=grass
+		fell : natural=fell
+		national park : boundary=national_park
+		allotments : landuse=allotments
+		academic : node[amenity=university OR amenity=college OR amenity=school] area[amenity=university OR amenity=college OR amenity=school]
+		meadow : natural=meadow OR landuse=meadow
+		nature reserve : leisure=nature_reserve
+		playground : leisure=playground
+		car park: amenity=parking
+		track : leisure=track
+		graveyard : amenity=grave_yard OR landuse=cemetery
+		military barracks : landuse=military AND military=barracks 
+		park : leisure=park
+		leisure garden : leisure=garden
+		landuse retail : landuse=retail
+		landuse industrial : landuse=industrial
+		commercial area : landuse=commercial
+		residential area : landuse=residential
+		
+	lines
+//		oneway : oneway=yes OR oneway=true OR oneway=-1
+//		coastline : natural=coastline
+//		river : waterway=river 
+//		stream : waterway=stream
+//		railway : railway=rail
+//		line barrier : barrier=wall OR barrier=fence
+		highway motorway : highway=motorway
+		highway motorway link : highway=motorway_link
+		highway trunk : highway=trunk
+		highway trunk link: highway=trunk_link
+		highway primary link : highway=primary_link
+		highway primary : highway=primary
+		highway secondary : highway=secondary
+		highway tertiary : highway=tertiary
+		highway unclassified : highway=unclassified
+		highway residential : highway=residential
+		highway service : highway=service
+		highway living street : highway=living_street
+//		highway pedestrian : highway=pedestrian
+//		highway track : highway=track
+//		highway footway : highway=footway
+//		highway cycleway : highway=cycleway
+//		highway path : highway=path
+ 		highway private : access=private AND highway
+//		highway steps : highway=steps
+//		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
+//		historic citywalls : historic=citywalls OR historic=city_wall
+
+//		boundary country : boundary=administrative AND (admin_level=2 OR admin_level=4)
+//		boundary province : boundary=administrative AND admin_level=6
+//		boundary municipal : boundary=administrative AND admin_level=8
+		
+		contours major : contour[elevation_multiplier=50]
+		contours minor : contour[elevation_multiplier=10 and not elevation_multiplier=50]
+
+//	Routes
+		route ncn : relation[type=route AND route=bicycle AND network=ncn]
+//		route byway : relation[type=route AND route=bicycle AND network="National Byway"]
+//		route foot : relation[type=route AND route=foot]
+
+	points
+//		place city : place=city
+//		place town : place=town
+//		place village : place=village
+//		place hamlet : place=hamlet
+//		hospital : amenity=hospital
+//		diy : shop=doityourself
+//		hair dresser : shop=hairdresser
+//		supermarket : shop=supermarket
+//		convenience : shop=convenience
+//		bakery : shop=bakery
+//		restaurant : amenity=restaurant
+//		cafe : amenity=cafe
+//		pharmacy : amenity=pharmacy
+
+properties
+	map-background-color	: #FFFFFF
+	map-background-opacity	: 1
+	map-sea-color : #B5B5B5
+	font-weight : bold
+	font-family : Verdana Bold
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	
+
+rules
+	target : highway private
+		define
+			line-width : 4
+			line-style : none
+			line-color : #000000
+		draw : line
+
+	target : highway*
+		for : oneway=yes OR oneway=true
+			define 
+				min-zoom : 15
+				shape : custom
+				shape-def : 60,0;20,-40;20,-15;-60,-15;-60,15;20,15;20,40;60,0
+				shape-size : 12
+				shape-aspect : 0.5
+				shape-spacing : 6
+				fill-color : #000000
+				line-style : none
+			for : oneway=-1
+				define
+					angle : 180
+			draw : shape 
+		
+		define
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			curved : true
+	
+		if : *motorway*
+			if : *link
+				define
+					line-width : 7:1;12:3;13:4;16:5;18:6
+			else
+				define
+					line-width : 7:1;9:2;12:3;13:7;16:10;18:12
+			define
+				min-zoom : 12
+				line-color : #000000
+				border-style : none
+//				border-color : #848484 black 20%
+//				border-width : 15%				
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *trunk*
+			define
+				min-zoom : 12
+				line-color : #000000
+				line-width : 11:1;13:2;15:10;18:12
+				border-style : none
+				border-color : #969696 black 20%
+				border-width : 15%
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *primary*
+			define
+				min-zoom : 11
+				line-color : #000000
+				line-width : 11:1;12:2;15:13;18:15
+				border-style : none
+				border-color : #ECECEC black 20%
+				border-width : 15%
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 11
+				border-style : none
+			draw : line
+		elseif : *secondary
+			define
+				min-zoom : 12
+				line-color : #000000
+				line-width : 11:1;13:2;15:12;18:14
+				border-style : none
+				border-color : #CACACA
+				border-width : 15%
+			draw : line
+			define
+				min-zoom : 8.5
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *tertiary
+			define
+				min-zoom : 10
+				line-color : #000000
+				line-width : 11:1;13:2;15:10;18:12
+				border-style : none
+				border-color : #FEFEFE black 20%
+				border-width : 15%
+			draw : line
+			draw : text
+		elseif : *service
+			define
+				min-zoom : 13
+				line-color : #000000
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : none
+				border-color : #FEFEFE black 20%
+				border-width : 15%
+			draw : line
+		elseif : *pedestrian
+			define
+				min-zoom : 13
+				line-color : #000000
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : none
+				border-color : #B1B1B1 black 20%
+				border-width : 15%
+			draw : line
+		elseif : *living street
+			define
+				min-zoom : 13
+				line-color : #000000
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : none
+				border-color : #B1B1B1 black 20%
+				border-width : 15%
+			draw : line
+			draw : text
+
+		elseif : $regex("(.*residential)|(.*unclassified)")
+			define
+				min-zoom : 13
+				line-color : #000000
+				line-width : 12:1;13:1.5;15:10;18:12
+				border-style : none
+				border-color : white black 50%
+				border-width : 20%
+			draw : line
+			define
+				min-zoom : 10
+				max-zoom : 13
+				border-style : none
+				line-color : #000000
+			draw : line
+			define
+				min-zoom : 15
+				max-zoom : 20
+				font-size : 15:7;18:10
+			draw : text
+		elseif : *track
+			define
+				min-zoom : 12.5
+				line-color : #000000
+				line-width : 1.5
+				line-style : dash
+				border-style : none
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			draw : line
+		elseif : *footway
+			define	
+				min-zoom : 13
+				line-color : #000000
+				line-width : 1.5
+				line-style : dot
+				border-style : none
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+//				curved : false
+			draw : line
+			draw : text		
+		elseif : *cycleway
+			define	
+				min-zoom : 13
+				line-color : #000000
+				line-width : 1.5
+				line-style : dot
+				border-style : none
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+//				curved : false
+			draw : line
+		elseif : *path
+			define	
+				min-zoom : 13
+				line-color : #000000
+				line-width : 1.5
+				line-style : dash
+				border-style : none
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+//				curved : false
+			draw : line
+		else
+			stop
+
+
+
+
+
+
+
+
+
+
+

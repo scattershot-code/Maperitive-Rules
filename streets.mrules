@@ -1,0 +1,34 @@
+// streets
+
+features
+	points
+		
+	lines
+		highway named : highway AND (name OR ref)
+		highway unnamed : highway AND NOT (name OR ref)	
+
+	
+
+		
+properties
+	map-background-color	: black
+	map-background-opacity	: 1
+	map-sea-color : black
+	
+rules
+	target : highway named
+		define
+			line-color : green
+			line-opacity : 20%
+			line-width : 10:1;16:3
+		draw : line
+
+	target : highway unnamed
+		define
+			line-color : red
+			line-opacity : 10%
+			line-width : 10:1;16:3
+		draw : line
+
+	
+				

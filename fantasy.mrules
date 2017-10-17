@@ -1,0 +1,168 @@
+// laser cutting maps for money make it look fantasy
+// DMK use-ruleset location=Rules/filename.mrules
+
+features
+	areas
+		water : natural=water OR waterway=riverbank OR landuse=reservoir OR landuse=basin OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
+		forest : landuse=forest OR natural=wood OR leisure=park OR landuse=orchard
+		grass : landuse=village_green OR landuse=farm OR landuse=farmyard OR landuse=grass OR natural=fell OR boundary=national_park OR natural=meadow OR landuse=meadow OR leisure=nature_reserve OR landuse=farmland OR leisure=garden OR amenity=grave_yard OR landuse=cemetery OR landuse=allotments
+
+	points
+		place city : place=city
+		place town : place=town
+		place village : place=village
+		place hamlet : place=hamlet
+
+	lines
+		big roads : highway=motorway OR highway=motorway_link
+		highway trunk : highway=trunk
+		highway trunk link: highway=trunk_link
+		highway primary link : highway=primary_link
+		highway primary : highway=primary
+
+		highway secondary : highway=secondary
+		highway tertiary : highway=tertiary
+
+//		contour major : contour[@isMulti(elevation, 100)]
+		contour minor : contour[@isMulti(elevation, 10) and not @isMulti(elevation, 100)]
+
+		boundary province : boundary=administrative AND admin_level=6
+		boundary municipal : boundary=administrative AND admin_level=8
+
+properties
+	map-background-color	: #FFFFFF
+	map-sea-color : #336699
+
+	font-weight : bold
+	font-family : Sherwood
+	text-max-width : 7
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	text-align-horizontal : center
+	text-align-vertical : center
+	font-stretch : 0.9
+	map.rendering.lflp.min-buffer-space : 5
+	map.rendering.lflp.max-allowed-corner-angle : 40
+
+
+rules
+	target : water
+		define
+			fill-color : #336699
+//			line-color : #336699
+			line-width : 0
+		draw : fill
+		draw : line
+
+
+//	target: coastline
+		define
+			line-color : #336699
+			line-width : 0
+		draw : line
+
+	target: *village
+		define
+			font-size : 23:12;36:18
+			text-color : #000000
+			icon-image : icons/fantasy/villageicon.png
+			icon-width : 40
+			text-offset-vertical : 120%
+		draw : text
+		draw : icon
+
+	target: *town
+		define
+			font-size : 23:15;36:22
+			text-color : #000000
+			icon-image : icons/fantasy/townicon.png
+			icon-width : 60
+			text-offset-vertical : 150%
+		draw : text
+		draw : icon
+
+	target: *city
+		define
+			font-size : 23:33;36:43
+			font-family : Enchanted Land
+			text-color : #000000
+			icon-image : icons/fantasy/cityicon.png
+			icon-width : 100
+			text-offset-vertical : 180%
+		draw : text
+		draw : icon
+
+	target : big roads
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+	target : highway trunk
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+	target : highway trunk link
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+	target : highway primary link
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+	target : highway primary
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+//	target : highway secondary
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+//	target : highway tertiary
+		define
+			line-color : #006633
+			line-style : dot
+			line-width : 1
+		draw : line
+
+	target : forest
+		define
+			line-style : none
+			line-width : 1
+			fill-texture : Textures/woods.png
+		draw : fill
+
+	target : grass
+		define
+			line-style : none
+			line-width : 1
+			fill-texture : Textures/grass.png
+		draw : fill
+
+	target: contour*
+		define
+			line-color : #996633
+			curved : true
+		if : *major
+			define
+				line-width : 1
+		else
+			define
+				line-width : 0.5
+		draw : contour
