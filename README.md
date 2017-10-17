@@ -33,7 +33,7 @@ Next you have to write a script that collects the relevant data, displays it and
 // This script will produce a contour map of the area selected by
 // the geometery and printing bounds selected
 // Made by DMK, 2017
-// Adds relief shading so countours can be seen clearer
+// Adds relief shading so contours can be seen clearer
 
 generate-relief-igor color=gray
 

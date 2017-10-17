@@ -35,7 +35,7 @@ rules
 	target: big roads
 		define
 			line-color : #FF0000
-			line-width : 15
+			line-width : 20
 			line-join : round
 			line-start-cap : round
 			line-end-cap : round
@@ -45,7 +45,7 @@ rules
 	target: roads
 		define
 			line-color : #FF0000
-			line-width : 10
+			line-width : 15
 			line-join : round
 			line-start-cap : round
 			line-end-cap : round
@@ -65,7 +65,7 @@ rules
 	target: other roads
 		define
 			line-color : #FF0000
-			line-width : 5
+			line-width : 15
 			line-join : round
 			line-start-cap : round
 			line-end-cap : round

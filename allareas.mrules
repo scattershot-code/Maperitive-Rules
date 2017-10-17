@@ -1,16 +1,24 @@
-// DMK use-ruleset location=Rules/allareas.mrules
+// dncnmckn use-ruleset location=Rules/allareas.mrules
 
 features
 	areas
-		all areas :
+//		all areas :
+		building : building=yes
 
 properties
 	map-background-color : #FFFFFF
 
 rules
-	target : all areas
+//	target : all areas
+//		define
+//			fill-color : #FFFFFF
+//			line-width : 0.1
+//			line-color : #ff0000
+//		draw : fill
+
+	target: building
 		define
 			fill-color : #FFFFFF
 			line-width : 0.1
-			line-color : #ff0000
+			line-color : #0000ff
 		draw : fill

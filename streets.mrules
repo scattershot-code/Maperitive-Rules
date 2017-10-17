@@ -1,34 +1,66 @@
-// streets
+// Laser cutting maps
+// Cut out back layer of land and water
+// cut out roads
+
+// DMK use-ruleset location=Rules/streets.mrules
 
 features
-	points
-		
+
+// streets and roads and things
 	lines
-		highway named : highway AND (name OR ref)
-		highway unnamed : highway AND NOT (name OR ref)	
+		big roads : highway=motorway OR highway=motorway_link OR highway=trunk OR highway=trunk_link
+		roads : highway=primary_link OR highway=primary
+		other roads : highway=secondary OR highway=tertiary OR highway=unclassified OR highway=residential OR highway=service OR highway=living_street
+		footpaths : highway=pedestrian OR highway=path OR highway=footway OR highway=steps
+		trains : railway=rail OR railway=light_rail
 
-	
 
-		
+// buildings and water
+	areas
+		water : natural=water OR waterway=riverbank OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
+		coast : natural=coastline
+
 properties
-	map-background-color	: black
-	map-background-opacity	: 1
-	map-sea-color : black
-	
+	map-background-color : #FFFFFF
+	map-sea-color : #336699
+
+
 rules
-	target : highway named
+// roads, all the roads
+	target: big roads
 		define
-			line-color : green
-			line-opacity : 20%
-			line-width : 10:1;16:3
+			line-color : #FF0000
+			line-width : 20
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			curved : true
 		draw : line
 
-	target : highway unnamed
+	target: roads
 		define
-			line-color : red
-			line-opacity : 10%
-			line-width : 10:1;16:3
+			line-color : #FF0000
+			line-width : 15
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			curved : true
 		draw : line
 
-	
-				
+	target: other roads
+		define
+			line-color : #FF0000
+			line-width : 15
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			curved : true
+		draw : line
+
+// water, all the water
+
+	target: water
+		define
+			fill-color : #336699
+			line-width : 0
+		draw : fill
