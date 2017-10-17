@@ -27,7 +27,7 @@ and then:
 apply-ruleset
 ```
 
-### Scripting
+### Scripting contours
 Next you have to write a script that collects the relevant data, displays it and saves it to a file location. Copy and paste the following into your text editor:
 ```
 // This script will produce a contour map of the area selected by
