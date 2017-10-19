@@ -1,164 +1,64 @@
-// Laser cutting maps for money
-// DMK use-ruleset location=Rules/filename.mrules
+// Laser cutting maps
+// black / white card
+// should cut out roads, rivers and rail
+
+// dncnmckn reminder
+// use-ruleset location=Rules/laser.mrules as-alias=Papercut
+// remove-ruleset alias=Papercut
+// http://maperitive.net/docs/Rulesets.html
+// http://wiki.openstreetmap.org/wiki/Map_Features
 
 features
+
+// streets and roads and things
 	lines
-		highway motorway : highway=motorway
-		highway motorway link : highway=motorway_link
-		highway trunk : highway=trunk
-		highway trunk link: highway=trunk_link
-		highway primary link : highway=primary_link
-		highway primary : highway=primary
-		highway secondary : highway=secondary
-		highway tertiary : highway=tertiary
-		highway unclassified : highway=unclassified
-		highway residential : highway=residential
-		highway service : highway=service
-		highway living street : highway=living_street
+		big roads : highway=motorway OR highway=motorway_link OR highway=trunk OR highway=trunk_link
+		roads : highway=primary_link OR highway=primary
+		other roads : highway=secondary OR highway=tertiary OR highway=unclassified OR highway=residential OR highway=service OR highway=living_street
+		footpaths : highway=pedestrian OR highway=path OR highway=footway OR highway=steps
+		trains : railway=rail OR railway=light_rail
 
-		railway rail : railway=rail
-		railway lightrail : railway=light_rail
-
-		feet : highway=footway OR highway=pedestrian OR highway=path OR highway=steps
-		coastline : natural=coastline OR waterway=dock
-
-		contour major : contour[@isMulti(elevation, 100)]
-		contour minor : contour[@isMulti(elevation, 5) and not @isMulti(elevation, 100)]
-
+// buildings and water
 	areas
-		railway station : railway=station
-		water : natural=water OR waterway=riverbank OR landuse=reservoir OR landuse=basin OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
+		water : natural=water OR waterway=riverbank OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
+		coast : natural=coastline
 
 properties
 	map-background-color : #FFFFFF
+	map-sea-color : #336699
 
 rules
-
-	target : feet
+// roads, all the roads
+	target: big roads
 		define
-			line-color : #0000ff
-			line-width : 1
-		draw : line
-
-	target : railway station
-		define
-			fill-color : #000000
 			line-color : #FF0000
-			line-width : 0.1
-		draw : fill
-
-	target : highway motorway
-		define
-			line-color : #0000ff
-			line-width : 5
+			line-width : 20
 		draw : line
 
-	target : highway motorway link
+	target: roads
 		define
-			line-color : #0000ff
-			line-width : 5
+			line-color : #FF0000
+			line-width : 15
 		draw : line
 
-	target : highway trunk
+	target: other roads
 		define
-			line-color : #0000ff
-			line-width : 5
+			line-color : #FF0000
+			line-width : 10
 		draw : line
 
-	target : highway trunk link
-		define
-			line-color : #0000ff
-			line-width : 5
-		draw : line
+// water, all the water
 
-	target : highway primary link
+	target: water
 		define
-			line-color : #0000ff
-			line-width : 3
-		draw : line
-
-	target : highway primary
-		define
-			line-color : #0000ff
-			line-width : 3
-		draw : line
-
-	target : highway secondary
-		define
-			line-color : #0000ff
+			fill-color : #ff0000
 			line-width : 1
 		draw : line
 
-	target : highway tertiary
-		define
-			line-color : #0000ff
-			line-width : 1
-		draw : line
+// trains, all the trains
 
-	target : highway unclassified
-		define
-			line-color : #0000ff
-			line-width : 0.5
-		draw : line
-
-	target : highway residential
-		define
-			line-color : #0000ff
-			line-width : 0.5
-		draw : line
-
-	target : highway service
-		define
-			line-color : #0000ff
-			line-width : 0.5
-		draw : line
-
-	target : highway living street
-		define
-			line-color : #0000ff
-			line-width : 0.5
-		draw : line
-
-	target : water
-		define
-			fill-color : #336699
-			line-color : #336699
-			line-width : 0.5
-		draw : fill
-		draw : line
-
-	target: contour*
-		define
-			line-color : #009933
-
-			curved : true
-		if : *major
-			define
-				min-zoom : 9
-				line-width : 11:0.1;11.9:1;12:1
-
-		else
-			define
-				min-zoom : 12
-				line-width : 0.5
-		draw : contour
-
-	target: coastline
-		define
-			line-color : #00FFFF
-			line-width : 1
-		draw : line
-
-	target: railway rail
-		define
-			line-color : #00FF00
-			line-style : dash
-			line-width : 1
-		draw : line
-
-	target: railway lightrail
-		define
-			line-color : #00FF00
-			line-style : dash
-			line-width : 1
+	target: trains
+	 	define
+		 	line-color : #0000FF
+		 	line-width : 10
 		draw : line

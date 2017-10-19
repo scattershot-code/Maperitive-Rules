@@ -7,6 +7,7 @@
 // use-ruleset location=Rules/streets.mrules as-alias=YouAreHere
 // remove-ruleset alias=YouAreHere
 // http://maperitive.net/docs/Rulesets.html
+// http://wiki.openstreetmap.org/wiki/Map_Features
 
 features
 
@@ -52,7 +53,7 @@ rules
 	target: other roads
 		define
 			line-color : #FF0000
-			line-width : 15
+			line-width : 10
 			line-join : round
 			line-start-cap : round
 			line-end-cap : round
