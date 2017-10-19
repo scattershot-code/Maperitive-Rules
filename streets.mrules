@@ -1,8 +1,12 @@
 // Laser cutting maps
-// Cut out back layer of land and water
-// cut out roads
+// 3mm birch ply
+// back layer is land and water
+// front layer is roads and rail
 
-// DMK use-ruleset location=Rules/streets.mrules
+// dncnmckn reminder
+// use-ruleset location=Rules/streets.mrules as-alias=YouAreHere
+// remove-ruleset alias=YouAreHere
+// http://maperitive.net/docs/Rulesets.html
 
 features
 
@@ -14,9 +18,6 @@ features
 		footpaths : highway=pedestrian OR highway=path OR highway=footway OR highway=steps
 		trains : railway=rail OR railway=light_rail
 
-
-
-
 // buildings and water
 	areas
 		water : natural=water OR waterway=riverbank OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
@@ -25,7 +26,6 @@ features
 properties
 	map-background-color : #FFFFFF
 	map-sea-color : #336699
-
 
 rules
 // roads, all the roads
