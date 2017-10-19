@@ -15,6 +15,8 @@ features
 		trains : railway=rail OR railway=light_rail
 
 
+
+
 // buildings and water
 	areas
 		water : natural=water OR waterway=riverbank OR waterway=dock OR waterway=river OR waterway=stream OR waterway=canal OR waterway=drain
@@ -64,3 +66,15 @@ rules
 			fill-color : #336699
 			line-width : 0
 		draw : fill
+
+// trains, all the trains
+
+	target: trains
+	 	define
+		 	line-color : #FF0000
+		 	line-width : 15
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			curved : true
+		draw : line
